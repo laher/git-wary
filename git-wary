@@ -26,7 +26,7 @@ command=${1:-}
 #echo "$pfx command=[$command]"
 case "$command" in
 	check)
-		diff_base $branch $2
+		diff_base $2 $branch
 		;;
 	merge)
 		diff_base $branch $2
