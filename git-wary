@@ -8,10 +8,10 @@ function diff_base {
 	#echo "$pfx merge-base is $base"
 	if ! outcome=$(git diff --name-only --exit-code $1 $base); then
 		c=$?
-		echo "$pfx Changes exist in destination branch '$2'"
+		echo "$pfx Changes exist in destination branch '$1'"
 		echo "$pfx affected files:"
 		echo "$outcome"
-		echo "$pfx Please merge '$2' into an appropriate branch, and try again"
+		echo "$pfx Please merge '$1' into an appropriate branch, and try again"
 		exit $c
 	fi
 }
@@ -26,10 +26,10 @@ command=${1:-}
 #echo "$pfx command=[$command]"
 case "$command" in
 	check)
-		diff_base $2 $branch
+		diff_base $branch $2
 		;;
 	merge)
-		diff_base $2 $branch
+		diff_base $branch $2
 		c=$?
 		if ! $c; then
 			#exit
