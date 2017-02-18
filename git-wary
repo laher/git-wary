@@ -26,10 +26,10 @@ command=${1:-}
 #echo "$pfx command=[$command]"
 case "$command" in
 	check)
-		diff_base $2 $branch
+		diff_base $branch $2
 		;;
 	merge)
-		diff_base $2 $branch
+		diff_base $branch $2
 		c=$?
 		if ! $c; then
 			exit 1
