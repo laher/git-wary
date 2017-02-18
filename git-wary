@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#git-wary will only succeed if there's nothing in the destination which isn't already in the source
+branch=`git rev-parse --abbrev-ref HEAD`
+
+function diff_base {
+	base=`git merge-base $1 $2`
+	#echo "$pfx merge-base is $base"
+	if ! outcome=$(git diff --name-only --exit-code $1 $base); then
+		c=$?
+		echo "$pfx Changes exist in destination branch '$2'"
+		echo "$pfx affected files:"
+		echo "$outcome"
+		echo "$pfx Please merge '$2' into an appropriate branch, and try again"
+		exit $c
+	fi
+}
+
+function usage {
+    	echo "$pfx Usage:"
+    	echo " $0 check <branch>"
+   	    echo " $0 merge <branch>"
+}
+
+command=${1:-}
+#echo "$pfx command=[$command]"
+case "$command" in
+	check)
+		diff_base $2 $branch
+		;;
+	merge)
+		diff_base $2 $branch
+		c=$?
+		if ! $c; then
+			#exit
+			exit 1
+		fi
+		$(git merge $2)
+		;;
+	*)
+		usage
+		exit 1
+esac
+
+#exit code from above
+exit $?
