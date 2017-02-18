@@ -27,12 +27,14 @@ git wary check release/1.2.3
 
 ## Setup
 
+Add the following to ~/.bash_profile (or ~/.zshrc, etc):
+
 `export PATH=path/to/git-wary:$PATH`
 
 
 ## Alternative approach
 
-This is the equivalent of the following. Note that it doesn't lend itself well to situations where you plan a release before releasing it.
+The following workflow is roughly equivalent to git-wary. 
 
 ```
 git checkout release/1.2.3
@@ -41,3 +43,5 @@ git merge master
 git checkout master
 git merge release/1.2.3
 ```
+
+Note that this alternative approach doesn't lend itself well to situations where you set up a release 1 or 2 days before releasing it.
