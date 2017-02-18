@@ -32,7 +32,6 @@ case "$command" in
 		diff_base $2 $branch
 		c=$?
 		if ! $c; then
-			#exit
 			exit 1
 		fi
 		$(git merge $2)
